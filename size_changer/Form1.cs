@@ -19,8 +19,16 @@ namespace size_changer
         }
 
         private void change_Click(object sender, EventArgs e)
-        { 
-            Changer.change_images(directory.Text, Convert.ToInt32(integr.Text));
+        {
+            Changer.change_images(directory.Text, integr.Text);
+        }
+
+        private void integr_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

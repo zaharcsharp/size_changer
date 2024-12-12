@@ -34,11 +34,13 @@
             directory = new TextBox();
             change = new Button();
             integr = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // Get_directory
             // 
-            Get_directory.Location = new Point(336, 14);
+            Get_directory.Location = new Point(424, 12);
             Get_directory.Name = "Get_directory";
             Get_directory.Size = new Size(94, 29);
             Get_directory.TabIndex = 1;
@@ -48,14 +50,15 @@
             // 
             // directory
             // 
-            directory.Location = new Point(12, 14);
+            directory.Location = new Point(100, 12);
             directory.Name = "directory";
             directory.Size = new Size(318, 27);
             directory.TabIndex = 2;
+            directory.ReadOnly = true;
             // 
             // change
             // 
-            change.Location = new Point(143, 68);
+            change.Location = new Point(424, 66);
             change.Name = "change";
             change.Size = new Size(94, 29);
             change.TabIndex = 3;
@@ -65,16 +68,37 @@
             // 
             // integr
             // 
-            integr.Location = new Point(12, 68);
+            integr.Location = new Point(100, 66);
             integr.Name = "integr";
-            integr.Size = new Size(125, 27);
+            integr.Size = new Size(318, 27);
             integr.TabIndex = 4;
+            integr.KeyPress += new KeyPressEventHandler(integr_KeyPress);
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(45, 20);
+            label1.TabIndex = 5;
+            label1.Text = "Файл";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(-1, 66);
+            label2.Name = "label2";
+            label2.Size = new Size(94, 20);
+            label2.TabIndex = 6;
+            label2.Text = "размер по x";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(integr);
             Controls.Add(change);
             Controls.Add(directory);
@@ -93,5 +117,7 @@
         private TextBox directory;
         private Button change;
         private TextBox integr;
+        private Label label1;
+        private Label label2;
     }
 }
