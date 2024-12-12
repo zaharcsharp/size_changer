@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
 
 namespace size_changer
@@ -27,14 +28,10 @@ namespace size_changer
                     if (fileex == ".png" || fileex == ".jpeg")
                     {
                         System.Drawing.Image img = System.Drawing.Image.FromFile(imageFile);
+
                         if(img.Width > Convert.ToInt32(ox))
                         {
-                            int Converted_ox = Convert.ToInt32(ox);
-                            SixLabors.ImageSharp.Image image = SixLabors.ImageSharp.Image.Load(imageFile);
-                            image.Mutate(x => x.Resize(Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height))));
-
-                            img.Dispose();
-                            image.Save(imageFile);
+                            img_saver(imageFile, ox, img);
                         }
                     }
                 }
@@ -47,6 +44,16 @@ namespace size_changer
                 MessageBox.Show("не все поля заполнены");
             }
             
+        }
+
+        private static void img_saver(string imageFile, string ox, System.Drawing.Image img)
+        {
+            int Converted_ox = Convert.ToInt32(ox);
+            SixLabors.ImageSharp.Image image = SixLabors.ImageSharp.Image.Load(imageFile);
+            image.Mutate(x => x.Resize(Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height))));
+
+            img.Dispose();
+            image.Save(imageFile, new PngEncoder());
         }
     }
 }
