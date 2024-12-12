@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace size_changer
 {
@@ -23,22 +26,15 @@ namespace size_changer
                     string fileex = file.Extension;
                     if (fileex == ".png" || fileex == ".jpeg")
                     {
-                        MessageBox.Show(".");
-                        Image img = Image.FromFile(imageFile);
+                        System.Drawing.Image img = System.Drawing.Image.FromFile(imageFile);
                         if(img.Width > Convert.ToInt32(ox))
                         {
-                            try
-                            {
-                                int Converted_ox = Convert.ToInt32(ox);
-                                Bitmap bmp = new Bitmap(img, Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height)));
-                                img.Dispose();
-                                bmp.Save(imageFile, ImageFormat.Jpeg);
-                            }
+                            int Converted_ox = Convert.ToInt32(ox);
+                            SixLabors.ImageSharp.Image image = SixLabors.ImageSharp.Image.Load(imageFile);
+                            image.Mutate(x => x.Resize(Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height))));
 
-                            catch
-                            {
-                                MessageBox.Show(imageFile);
-                            }
+                            img.Dispose();
+                            image.Save(imageFile);
                         }
                     }
                 }
