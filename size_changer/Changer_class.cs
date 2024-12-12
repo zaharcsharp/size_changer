@@ -21,15 +21,24 @@ namespace size_changer
                 { 
                     FileInfo file = new FileInfo(imageFile);
                     string fileex = file.Extension;
-                    if (fileex == ".jpg" || fileex == ".png")
+                    if (fileex == ".png" || fileex == ".jpeg")
                     {
+                        MessageBox.Show(".");
                         Image img = Image.FromFile(imageFile);
                         if(img.Width > Convert.ToInt32(ox))
                         {
-                            int Converted_ox = Convert.ToInt32(ox);
-                            Bitmap bmp = new Bitmap(img, Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height)));
-                            img.Dispose();
-                            bmp.Save(imageFile, ImageFormat.Jpeg);
+                            try
+                            {
+                                int Converted_ox = Convert.ToInt32(ox);
+                                Bitmap bmp = new Bitmap(img, Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height)));
+                                img.Dispose();
+                                bmp.Save(imageFile, ImageFormat.Jpeg);
+                            }
+
+                            catch
+                            {
+                                MessageBox.Show(imageFile);
+                            }
                         }
                     }
                 }
