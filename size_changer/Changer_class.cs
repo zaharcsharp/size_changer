@@ -32,12 +32,10 @@ namespace size_changer
                     {
                         try
                         {
-                            using (System.Drawing.Image img = System.Drawing.Image.FromFile(imageFile))
+                            System.Drawing.Image img = System.Drawing.Image.FromFile(imageFile);
+                            if (img.Width > Convert.ToInt32(ox))
                             {
-                                if (img.Width > Convert.ToInt32(ox))
-                                {
-                                    img_saver(imageFile, ox, img);
-                                }
+                                img_saver(imageFile, ox, img);
                             }
                         }
 
