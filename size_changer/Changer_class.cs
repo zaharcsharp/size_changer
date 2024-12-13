@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,11 @@ namespace size_changer
 {
     public static class Changer
     {
+
+        private static string[] validExtensions = { ".png", ".jpeg", ".jpg" };
         public static void change_images(string directory, string ox)
         {
+
 
 
             if (directory != "" && ox != "")
@@ -24,14 +28,22 @@ namespace size_changer
                 foreach (string imageFile in imageFiles)
                 { 
                     FileInfo file = new FileInfo(imageFile);
-                    string fileex = file.Extension;
-                    if (fileex == ".png" || fileex == ".jpeg")
+                    if (validExtensions.Contains(file.Extension.ToLower()))
                     {
-                        System.Drawing.Image img = System.Drawing.Image.FromFile(imageFile);
-
-                        if(img.Width > Convert.ToInt32(ox))
+                        try
                         {
-                            img_saver(imageFile, ox, img);
+                            using (System.Drawing.Image img = System.Drawing.Image.FromFile(imageFile))
+                            {
+                                if (img.Width > Convert.ToInt32(ox))
+                                {
+                                    img_saver(imageFile, ox, img);
+                                }
+                            }
+                        }
+
+                        catch (Exception ex)
+{
+                            MessageBox.Show($"Ошибка при обработке файла {imageFile}: {ex.Message}");
                         }
                     }
                 }
@@ -53,7 +65,7 @@ namespace size_changer
             image.Mutate(x => x.Resize(Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height))));
 
             img.Dispose();
-            image.Save(imageFile, new PngEncoder());
+            image.Save(imageFile);
         }
     }
 }
