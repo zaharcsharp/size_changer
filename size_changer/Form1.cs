@@ -1,4 +1,5 @@
 using System.DirectoryServices;
+using System.Net.Http.Headers;
 
 namespace size_changer
 {
@@ -18,9 +19,11 @@ namespace size_changer
             }
         }
 
-        private void change_Click(object sender, EventArgs e)
+        private async void change_Click(object sender, EventArgs e)
         {
-            Changer.change_images(directory.Text, integr.Text);
+            await Changer.change_images(directory.Text, integr.Text, Convert.ToInt32(numericUpDown1.Value));
+            integr.Text = null;
+            numericUpDown1.Value = 100;
         }
 
         private void integr_KeyPress(object sender, KeyPressEventArgs e)

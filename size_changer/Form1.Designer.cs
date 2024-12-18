@@ -36,11 +36,14 @@
             integr = new TextBox();
             label1 = new Label();
             label2 = new Label();
+            numericUpDown1 = new NumericUpDown();
+            label3 = new Label();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // Get_directory
             // 
-            Get_directory.Location = new Point(424, 12);
+            Get_directory.Location = new Point(12, 12);
             Get_directory.Name = "Get_directory";
             Get_directory.Size = new Size(94, 29);
             Get_directory.TabIndex = 1;
@@ -50,17 +53,17 @@
             // 
             // directory
             // 
-            directory.Location = new Point(100, 12);
+            directory.Location = new Point(112, 14);
             directory.Name = "directory";
+            directory.ReadOnly = true;
             directory.Size = new Size(318, 27);
             directory.TabIndex = 2;
-            directory.ReadOnly = true;
             // 
             // change
             // 
-            change.Location = new Point(424, 66);
+            change.Location = new Point(112, 174);
             change.Name = "change";
-            change.Size = new Size(94, 29);
+            change.Size = new Size(357, 130);
             change.TabIndex = 3;
             change.Text = "Изменить";
             change.UseVisualStyleBackColor = true;
@@ -68,16 +71,16 @@
             // 
             // integr
             // 
-            integr.Location = new Point(100, 66);
+            integr.Location = new Point(112, 68);
             integr.Name = "integr";
             integr.Size = new Size(318, 27);
             integr.TabIndex = 4;
-            integr.KeyPress += new KeyPressEventHandler(integr_KeyPress);
+            integr.KeyPress += integr_KeyPress;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 12);
+            label1.Location = new Point(448, 21);
             label1.Name = "label1";
             label1.Size = new Size(45, 20);
             label1.TabIndex = 5;
@@ -86,17 +89,36 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(-1, 66);
+            label2.Location = new Point(448, 75);
             label2.Name = "label2";
             label2.Size = new Size(94, 20);
             label2.TabIndex = 6;
             label2.Text = "размер по x";
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(112, 116);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(150, 27);
+            numericUpDown1.TabIndex = 7;
+            numericUpDown1.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(268, 123);
+            label3.Name = "label3";
+            label3.Size = new Size(310, 20);
+            label3.TabIndex = 8;
+            label3.Text = "качество картинки относительно исходной";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label3);
+            Controls.Add(numericUpDown1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(integr);
@@ -105,6 +127,7 @@
             Controls.Add(Get_directory);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -119,5 +142,7 @@
         private TextBox integr;
         private Label label1;
         private Label label2;
+        private NumericUpDown numericUpDown1;
+        private Label label3;
     }
 }

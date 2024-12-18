@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
 
@@ -16,10 +17,9 @@ namespace size_changer
     {
 
         private static string[] validExtensions = { ".png", ".jpeg", ".jpg" };
-        public static void change_images(string directory, string ox)
+        public static async Task change_images(string directory, string ox, int quality)
         {
-
-
+            var encoder = new JpegEncoder { Quality = quality };
 
             if (directory != "" && ox != "")
             {
@@ -36,7 +36,7 @@ namespace size_changer
                             {
                                 if (img.Width > Convert.ToInt32(ox))
                                 {
-                                    img_saver(imageFile, ox, img);
+                                    await img_saver(imageFile, ox, img, encoder);
                                 }
                             }
                             
@@ -59,14 +59,14 @@ namespace size_changer
             
         }
 
-        private static void img_saver(string imageFile, string ox, System.Drawing.Image img)
+        private static async Task img_saver(string imageFile, string ox, System.Drawing.Image img, JpegEncoder encoder)
         {
             int Converted_ox = Convert.ToInt32(ox);
             SixLabors.ImageSharp.Image image = SixLabors.ImageSharp.Image.Load(imageFile);
             image.Mutate(x => x.Resize(Converted_ox, Convert.ToInt32(Converted_ox / ((float)img.Width / (float)img.Height))));
 
-            img.Dispose();
-            image.Save(imageFile);
+            await Task.Run(img.Dispose);
+            await image.SaveAsync(imageFile, encoder);
         }
     }
 }
